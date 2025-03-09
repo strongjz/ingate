@@ -21,5 +21,4 @@ While we are in transition, we are still using the Ingress NGINX Slack channels 
 
 ### Code of conduct
 
-Participation in the Kubernetes community is governed by the [Kubernetes Code of Conduct](code-of-conduct.md).
->>>>>>> b811a28 (add docs skeleton site)
+Participation in the Kubernetes community is governed by the [Kubernetes Code of Conduct](contributing/code-of-conduct.md).

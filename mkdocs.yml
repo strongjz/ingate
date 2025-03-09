@@ -92,5 +92,7 @@ nav:
 
   - Contributing:
       - Getting Started: "contributing/getting-started.md"
+      - Contributor Ladder: "contributing/ladder.md"
+      - Code of Conduct: "contributing/code-of-conduct.md" 
   - FAQ: "faq.md"
 >>>>>>> b811a28 (add docs skeleton site)
