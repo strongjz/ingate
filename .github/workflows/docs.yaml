@@ -1,0 +1,26 @@
+name: Documentation
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - mkdocs.yml
+      - docs/**
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4.2.2
+
+      - name: Deploy documentation
+        uses: mhausenblas/mkdocs-deploy-gh-pages@1.26
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
