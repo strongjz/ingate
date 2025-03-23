@@ -8,7 +8,6 @@
 - Develop the feature
 - Open a pull request
 
-
 ## Feature Requests
 
 A feature request is considered completed when: 
