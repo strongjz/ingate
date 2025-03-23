@@ -17,6 +17,6 @@ theme:
 nav:
   - Welcome: index.md
   - Contributing: 
-      - Getting Started: contributing/contributing.md
+      - Getting Started: contributing/index.md
       - Contributor Ladeder: contributing/ladder.md
   - FAQ: faq.md
