@@ -1,9 +1,9 @@
 # Contributing
 
-## Guidlines
+## Guidelines
 
 - Discuss idea before starting a pull request
-- Open an Feature Request issue to propse your idea 
+- Open an Feature Request issue to propose your idea 
 - Review with the Maintainers before starting work
 - Develop the feature
 - Open a pull request
