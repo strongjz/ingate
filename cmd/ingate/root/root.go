@@ -30,6 +30,6 @@ func GetRootCommand() *cobra.Command {
 	}
 
 	c.AddCommand(cmd.GetVersionCommand())
-	c.AddCommand(cmd.GetDataPlaneCommand())
+	c.AddCommand(cmd.StartControlPlaneCommand())
 	return c
 }
