@@ -210,7 +210,7 @@ gateway.install: ## Install Gateway API CRDs in cluster
 
 ingate.deploy:
 	echo "Deploying Ingate Controller via helm"
-	helm install ingate charts/ingate --namespace=ingate --create-namespace --set global.registry="${REGISTRY}" --wait
+	helm upgrade -i ingate charts/ingate --namespace=ingate --create-namespace --set global.registry="${REGISTRY}" --wait --debug
 
 .PHONY: docs.build
 docs.build: ## Build and launch a local copy of the documentation website in http://localhost:8000
