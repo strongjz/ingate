@@ -2,8 +2,8 @@ package gatewayapi
 
 import (
 	"context"
-
 	"k8s.io/apimachinery/pkg/runtime"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/klog/v2"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -19,17 +19,19 @@ type GatewayReconciler struct {
 func (r *GatewayReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ctrl.Result, error) {
 
 	klog.InfoS("reconciling Gateway")
-	crtlResult := ctrl.Result{
+	ctrlResult := ctrl.Result{
 		Requeue:      false,
 		RequeueAfter: 0,
 	}
-	return crtlResult, nil
+	return ctrlResult, nil
 }
 
 func NewGatewayReconciler(mgr ctrl.Manager) *GatewayReconciler {
+	scheme := mgr.GetScheme()
+	scheme.AddKnownTypes(schema.GroupVersion(gatewayv1.GroupVersion), &gatewayv1.Gateway{})
 	return &GatewayReconciler{
 		Client: mgr.GetClient(),
-		Scheme: mgr.GetScheme(),
+		Scheme: scheme,
 	}
 }
 
