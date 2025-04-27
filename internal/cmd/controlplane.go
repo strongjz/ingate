@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/kubernetes-sigs/ingate/internal/controlplane/controller"
+	"github.com/kubernetes-sigs/ingate/internal/controlplane"
 	"github.com/spf13/cobra"
 )
 
@@ -11,7 +11,7 @@ func StartControlPlaneCommand() *cobra.Command {
 		Aliases: []string{"start", "s"},
 		Short:   "Start InGate controller",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			return controller.Start()
+			return controlplane.Start()
 		},
 	}
 

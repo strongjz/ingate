@@ -217,6 +217,9 @@ ingate.deploy:
 	echo "Deploying Ingate Controller via helm"
 	helm upgrade -i ingate charts/ingate --namespace=ingate --create-namespace --set global.registry="${REGISTRY}" --wait --debug --timeout=1m
 
+ingate.restart:
+	kubectl rollout restart -n ingate deployment ingate
+
 .PHONY: docs.build
 docs.build: ## Build and launch a local copy of the documentation website in http://localhost:8000
 	@docker build --no-cache -t ingate-docs -f tools/docs/Dockerfile .
