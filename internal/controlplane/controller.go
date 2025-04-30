@@ -54,7 +54,7 @@ func Start() error {
 		LeaderElection:         false,   //needs a flag
 		LeaderElectionID:       inGateControllerName,
 		Metrics: metricsserver.Options{
-			BindAddress: "8080", //needs a flag
+			BindAddress: ":8080", //needs a flag
 		},
 	})
 	if err != nil {
