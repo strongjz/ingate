@@ -16,6 +16,7 @@ import (
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 
+	metricsserver "sigs.k8s.io/controller-runtime/pkg/metrics/server"
 	gatewayv1 "sigs.k8s.io/gateway-api/apis/v1"
 	gatewayv1beta1 "sigs.k8s.io/gateway-api/apis/v1beta1"
 )
@@ -48,10 +49,13 @@ func Start() error {
 
 	// Create the ctrl runtime manager
 	mgr, err := ctrl.NewManager(ctrl.GetConfigOrDie(), ctrl.Options{
-		Scheme: scheme, // All registered types
-
-		LeaderElection:   false, //needs a flag
-		LeaderElectionID: inGateControllerName,
+		Scheme:                 scheme,  // All registered types
+		HealthProbeBindAddress: ":9000", //needs a flag
+		LeaderElection:         false,   //needs a flag
+		LeaderElectionID:       inGateControllerName,
+		Metrics: metricsserver.Options{
+			BindAddress: "8080", //needs a flag
+		},
 	})
 	if err != nil {
 		klog.ErrorS(err, "failed to construct InGate manager")
@@ -68,7 +72,7 @@ func Start() error {
 		return err
 	}
 
-	klog.InfoS("starting gateway class controller")
+	klog.InfoS("adding gateway class controller")
 	// Create and Add Gateway Class reconciler to manager
 	newGateWayClassReconciler := NewGatewayClassReconciler(mgr)
 
@@ -77,7 +81,7 @@ func Start() error {
 		return err
 	}
 
-	klog.InfoS("starting gateway controller")
+	klog.InfoS("adding gateway controller")
 	// Create and Add Gateway reconciler to manager
 	newGateWayReconciler := NewGatewayReconciler(mgr)
 

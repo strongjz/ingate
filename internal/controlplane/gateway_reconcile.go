@@ -43,6 +43,7 @@ func (r *GatewayReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 		return reconcile.Result{}, client.IgnoreNotFound(err)
 	}
 
+	klog.Infof("reconciling Gateway %s/%s", gc.Namespace, gc.Name)
 	// Only manage GatewayClasses with our specific controllerName
 	if gc.Spec.GatewayClassName != inGateControllerName {
 		return reconcile.Result{}, nil
@@ -60,6 +61,7 @@ func (r *GatewayReconciler) Reconcile(ctx context.Context, req ctrl.Request) (ct
 		},
 	}
 
+	klog.Infof("Accepted Gateway %s/%s", gc.Namespace, gc.Name)
 	if err := r.Status().Update(ctx, &gc); err != nil {
 		return reconcile.Result{}, err
 	}

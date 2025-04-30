@@ -43,12 +43,15 @@ func (r *GatewayClassReconciler) Reconcile(ctx context.Context, req ctrl.Request
 		return reconcile.Result{}, client.IgnoreNotFound(err)
 	}
 
+	klog.Infof("reconciling Gateway %s/%s", gwc.Namespace, gwc.Name)
 	// Only manage GatewayClasses with our specific controllerName
 	if gwc.Spec.ControllerName != inGateControllerName {
+		klog.Infof("Gateway does not match controller %s/%s", gwc.Namespace, gwc.Name)
 		return reconcile.Result{}, nil
 	}
 
 	if gwc.GetDeletionTimestamp() != nil {
+		klog.Infof("Gateway is being deleted %s/%s", gwc.Namespace, gwc.Name)
 		return reconcile.Result{}, nil
 	}
 
@@ -64,8 +67,11 @@ func (r *GatewayClassReconciler) Reconcile(ctx context.Context, req ctrl.Request
 		},
 	}
 
+	klog.Infof("Accepted Gateway Class %s/%s", gwc.Namespace, gwc.Name)
+
 	if err := r.Status().Update(ctx, &gwc); err != nil {
 		return reconcile.Result{}, err
 	}
+
 	return reconcile.Result{}, nil
 }

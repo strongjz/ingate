@@ -24,18 +24,17 @@ import (
 	gatewayv1 "sigs.k8s.io/gateway-api/apis/v1"
 )
 
-func NewGatewayClassReconciler(mgr ctrl.Manager) *GatewayReconciler {
-	return &GatewayReconciler{
+func NewGatewayClassReconciler(mgr ctrl.Manager) *GatewayClassReconciler {
+	return &GatewayClassReconciler{
 		Client: mgr.GetClient(),
 		Scheme: mgr.GetScheme(),
 	}
 }
 
 func (r *GatewayClassReconciler) SetupWithManager(mgr ctrl.Manager) error {
-	klog.InfoS("starting gateway class controller")
+	klog.InfoS("starting gateway class Reconciler")
 	return ctrl.NewControllerManagedBy(mgr).
-		For(
-			&gatewayv1.GatewayClass{},
+		For(&gatewayv1.GatewayClass{},
 			builder.WithPredicates(
 				predicate.NewPredicateFuncs(
 					MatchControllerName(inGateControllerName)))).

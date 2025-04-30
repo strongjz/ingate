@@ -56,7 +56,7 @@ func (r *GatewayReconciler) RetrieveGateClassResources() handler.EventHandler {
 		var reqs []reconcile.Request
 		gwList := &gatewayv1.GatewayList{}
 		if err := r.Client.List(ctx, gwList); err != nil {
-			klog.Error("Unable to list Gateways")
+			klog.Errorf("Unable to list Gateways %s", err)
 			return nil
 		}
 
