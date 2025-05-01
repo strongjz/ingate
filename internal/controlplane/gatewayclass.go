@@ -32,7 +32,7 @@ func NewGatewayClassReconciler(mgr ctrl.Manager) *GatewayClassReconciler {
 }
 
 func (r *GatewayClassReconciler) SetupWithManager(mgr ctrl.Manager) error {
-	klog.InfoS("starting gateway class Reconciler")
+	klog.Info("setting up gateway class controller")
 	return ctrl.NewControllerManagedBy(mgr).
 		For(&gatewayv1.GatewayClass{},
 			builder.WithPredicates(
