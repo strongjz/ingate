@@ -215,7 +215,7 @@ gateway.install: ## Install Gateway API CRDs in cluster
 
 ingate.deploy:
 	echo "Deploying Ingate Controller via helm"
-	helm upgrade -i ingate charts/ingate --namespace=ingate --create-namespace --set global.registry="${REGISTRY}" --wait --debug --timeout=1m
+	helm upgrade -i ingate charts/ingate --namespace=ingate --create-namespace --set global.image.registry="${REGISTRY}" --wait --debug --timeout=1m
 
 ingate.restart:
 	kubectl rollout restart -n ingate deployment ingate

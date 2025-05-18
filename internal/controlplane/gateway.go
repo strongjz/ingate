@@ -45,6 +45,7 @@ func (r *GatewayReconciler) SetupWithManager(mgr ctrl.Manager) error {
 		Watches(&gatewayv1.GatewayClass{},
 			r.RetrieveGateClassResources(),
 			builder.WithPredicates(predicate.NewPredicateFuncs(func(object client.Object) bool {
+				klog.V(2).Infof("checking gateway class %s", object.GetName())
 				return object.(*gatewayv1.GatewayClass).Spec.ControllerName == inGateControllerName
 			}))).
 		Complete(r)
@@ -62,8 +63,10 @@ func (r *GatewayReconciler) RetrieveGateClassResources() handler.EventHandler {
 
 		for _, gw := range gwList.Items {
 			if gw.Spec.GatewayClassName != gatewayv1.ObjectName(a.GetName()) {
+				klog.V(2).Infof("skipping gateway %s does not match class %s", gw.Name, gw.Spec.GatewayClassName)
 				continue
 			}
+
 			req := reconcile.Request{
 				NamespacedName: types.NamespacedName{
 					Namespace: gw.Namespace,

@@ -1,8 +1,10 @@
 package cmd
 
 import (
+	"flag"
 	"github.com/kubernetes-sigs/ingate/internal/controlplane"
 	"github.com/spf13/cobra"
+	"k8s.io/klog/v2"
 )
 
 func StartControlPlaneCommand() *cobra.Command {
@@ -14,6 +16,12 @@ func StartControlPlaneCommand() *cobra.Command {
 			return controlplane.Start()
 		},
 	}
+
+	// Initialize klog flags
+	klog.InitFlags(nil)
+
+	// Add klog flags to Cobra
+	cmd.PersistentFlags().AddGoFlagSet(flag.CommandLine)
 
 	return cmd
 }
